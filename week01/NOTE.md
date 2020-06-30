@@ -52,4 +52,37 @@
 
 ## 完成本周直播课程学习，根据老师所列的知识体系的脑图，自己用老师所教授的追溯法，并通过理解将其补充完整，形成自己的知识体系
 
+### 我在这里把XMIND我自己不大熟悉的知识点总结一下
+
+- Namespace SVG: 
+- HTML5 Aside  
+- CSS 伪元素
+- CSS 优先级: 最近我们公司的项目出现了CSS全局污染的问题，因为有的项目引入了bootstrap, 解决的方法就是设置CSS优先级
+- async function
+
+### 最近在学习的内容
+
+#### popper
+原始代码
+
+<code>
+require(["popper"], function(popper) {
+  window.Popper = popper;
+  require(["tippy"]);
+});
+</code>
+
+React 改造
+
+#### 展示新用户指南
+原始代码
+
+<code>
+(() => {
+    const newflag = window.localStorage.getItem('new user');
+    newflag || ( giveTutorial(), window.localStorage.setItem('new user', true) )
+  })()
+</code>
+
+React 改造
 
