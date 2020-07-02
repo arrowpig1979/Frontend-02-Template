@@ -56,33 +56,9 @@
 
 - Namespace SVG: 
 - HTML5 Aside  
-- CSS 伪元素
-- CSS 优先级: 最近我们公司的项目出现了CSS全局污染的问题，因为有的项目引入了bootstrap, 解决的方法就是设置CSS优先级
-- async function
+- [CSS 伪元素](https://www.cnblogs.com/liAnran/p/9714040.html):本来需要用 DOM 节点来表示的装饰效果可以使用伪元素来实现，就相当于装饰器。
+- CSS 优先级: 最近我们公司的项目出现了CSS全局污染的问题，因为有的项目引入了bootstrap, 解决的方法就是设置 [CSS优先级](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity)
+- [async function](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function): Async 函数内部需要使用 await. 按照追溯法我们要搞清楚 Async 的来龙去脉，于是我就 搜索 **Async function 历史**，结果找到了 [JavaScript async/await发展史](https://www.jianshu.com/p/26d7f44736bc)
 
-### 最近在学习的内容
 
-#### popper
-原始代码
-
-<code>
-require(["popper"], function(popper) {
-  window.Popper = popper;
-  require(["tippy"]);
-});
-</code>
-
-React 改造
-
-#### 展示新用户指南
-原始代码
-
-<code>
-(() => {
-    const newflag = window.localStorage.getItem('new user');
-    newflag || ( giveTutorial(), window.localStorage.setItem('new user', true) )
-  })()
-</code>
-
-React 改造
 
