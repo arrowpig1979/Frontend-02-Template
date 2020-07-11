@@ -89,3 +89,4 @@
 
 ### 找出 JavaScript 标准里面所有具有特殊行为的对象
 
+[ES5类型](https://www.w3.org/html/ig/zh/wiki/ES5/%E7%B1%BB%E5%9E%8B#Object.E7.9A.84.E5.86.85.E9.83.A8.E5.B1.9E.E6.80.A7.E5.8F.8A.E6.96.B9.E6.B3.95)
