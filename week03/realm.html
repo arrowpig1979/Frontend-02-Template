@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Realm Demo</title>
+  </head>
+  <body>
+    <div id="mountNode"></div>
+
+    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g6-3.1.0/build/g6.js"></script>
+
+    <script>
+
+
+        var set = new Set();
+        var objects = [
+                eval,
+                isFinite,
+                isNaN,
+    parseFloat,
+    parseInt,
+    decodeURI,
+    decodeURIComponent,
+    encodeURI,
+    encodeURIComponent,
+    Array,
+    Date,
+    RegExp,
+    Promise,
+    Proxy,
+    Map,
+    WeakMap,
+    Set,
+    WeakSet,
+    Function,
+    Boolean,
+    String,
+    Number,
+    Symbol,
+    Object,
+    Error,
+    EvalError,
+    RangeError,
+    ReferenceError,
+    SyntaxError,
+    TypeError,
+    URIError,
+    ArrayBuffer,
+    SharedArrayBuffer,
+    DataView,
+    Float32Array,
+    Float64Array,
+    Int8Array,
+    Int16Array,
+    Int32Array,
+    Uint8Array,
+    Uint16Array,
+    Uint32Array,
+    Uint8ClampedArray,
+    Atomics,
+    JSON,
+    Math,
+    Reflect];
+    
+    objects.forEach(o => set.add(o));
+    
+    const data = { nodes: [], edges: []};
+
+    for(var i = 0; i < objects.length; i++) {
+        var o = objects[i];
+        data.nodes.push({id: o.name, label: o.name})
+        for(var p of Object.getOwnPropertyNames(o)) {
+            var d = Object.getOwnPropertyDescriptor(o, p);
+            if( (d.value !== null && typeof d.value === "object") || (typeof d.value === "function")){
+                if(!set.has(d.value)){
+                    set.add(d.value);
+                    
+                    if(o.name && d.value.name){
+                        objects.push(d.value);
+                        data.edges.push({source: o.name, target:d.value.name});
+                    }
+                    else{
+                        console.log("something is wrong")
+                    }
+                }
+            }
+            if( d.get){
+                if(!set.has(d.get)){
+                    set.add(d.get);
+                    objects.push(d.get);
+                    if(o.name && d.get.name){
+                        data.edges.push({source: o.name, target:d.get.name});
+                    }else{
+                        console.log("something is wrong")
+                    }
+                }
+            }
+            if( d.set ){
+                if(!set.has(d.set)){
+                    set.add(d.set);
+                    objects.push(d.set);
+                    if(o.name && d.set.name){
+                        data.edges.push({source: o.name, target:d.set.name});
+                    }else{
+                        console.log("something is wrong")
+                    }
+                }
+            }
+        }
+    }
+
+
+      // Instantiate a Graph
+      const graph = new G6.Graph({  
+        container: 'mountNode', // The id of the container
+        // The width and height of the graph
+        width: 1200,
+        height: 800,
+        modes: {
+
+            default: ['drag-canvas', 'zoom-canvas'],
+            
+        },
+        defaultNode: {
+            size: 26,
+            anchorPoints: [
+                [0, 0.5],
+                [1, 0.5],
+            ],
+            style: {
+                fill: '#C6E5FF',
+                stroke: '#5B8FF9',
+            },
+        },
+        defaultEdge: {
+            type: 'cubic-horizontal',
+            style: {
+                stroke: '#A3B1BF',
+            },
+        },
+        fitView: true,
+        layout: {
+    type: 'force',
+    preventOverlap: true,
+    center: [200, 200], // The center of the graph by default
+    linkDistance: 30, // Edge length
+    nodeStrength: 30,
+    edgeStrength: 0.1,
+    collideStrength: 0.8,
+    nodeSize: 30,
+    alpha: 0.3,
+    alphaDecay: 0.028,
+    alphaMin: 0.01,
+    forceSimulation: null,
+    }
+});
+      // Load the data
+      graph.data(data);
+      // Render the graph
+      graph.render();
+    
+    </script>
+  </body>
+</html>
