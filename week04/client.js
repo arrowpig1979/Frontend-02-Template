@@ -1,5 +1,6 @@
 
 const net = require('net');
+const parser = require('./parser.js')
 
 class Request{
     constructor(options){
@@ -45,7 +46,7 @@ ${this.bodyText}`
                 })
             }
             connection.on('data',(data)=>{
-                console.log(data.toString());
+                //console.log(data.toString());
                 parser.receive(data.toString());
                 if(parser.isFinished){
                     resolve(parser.response);
@@ -181,7 +182,7 @@ class ThunkedBodyParser{
             if(char === '\n'){
                 this.current = this.READING_TRUNK;
             }
-        }else if(this.content === this.READING_TRUNK){
+        }else if(this.current === this.READING_TRUNK){
             this.content.push(char);
             this.length --;
             if(this.length === 0){
@@ -215,5 +216,6 @@ void async function(){
         }
     });
     let response = await request.send();
+    let dom  = parser.parseHTML(response.body);
     console.log(response);
 }();
