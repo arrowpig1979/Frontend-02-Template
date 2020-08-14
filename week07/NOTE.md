@@ -49,9 +49,52 @@ HTML代码中可以书写开始 __标签__，结束 __标签__ ，和自封闭 _
     <span>Hello good 中文</span>
     <div style="vertical-align:text-bottom;line-height: 70px;width: 100px;height: 150px;background-color: aqua;display: inline-block;">b<br/>c</div>
 
-    
+</code>
 
-</div>
+- float:right 和 clear:right
+- float 不认 \<br/>, 怎么实现float 的换行呢，就要使用 clear,  比如在 前面一个div 是float:left, 那想要换一行布局一个新的 div 可以使用 \<div style="clear:left"></div>
+- margin collapse, 在 BFC 的情况下，上下margin 堆叠
+- Block container: 里面可以放 BFC; Block-Level-Box: 外面有 BFC;  Block-Box = Block Container + Block-Level-Box: 内外都有 BFC。 文字只能放进 IFC
+- __Block Container__: block, inline-block, table-cell,flex item, grid cell, table-caption
+- 我们认为那些能容纳正常流的盒，都会创建BFC, 只有以下情况除外： block-box && overflow:visible
+
+#### Flex
+
+#### Animation
+
+<code>
+
+    <style>
+    @keyframes mykf
+    {
+        from {background:red;}
+        to {background:yellow;}
+    }
+
+    div
+    {
+        animation:mykf 5s infinite;
+    }
+    </style>
+
+    <div style="width:100px;height:100px"></div>
 
 </code>
 
+#### CSS 属性分类
+
+- 几何图形
+  - border
+  - box-shadow
+  - border-radius
+- 文字
+  - font
+  - text-decoration
+- 位图
+  - background-image
+
+  <code>
+
+        data:image/svg+xml,<svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg"><ellipse cx="300" cy="150" rx="200" ry="80" style="fill:rgb(200,100,50);stroke:rgb(0,0,100);stroke-width:2" /></svg>
+
+  </code>
