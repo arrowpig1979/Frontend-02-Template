@@ -1,0 +1,28 @@
+<script>
+    let names = Object.getOwnPropertyNames(window);
+
+    function filterOut(names, props){
+        let set  = new Set();
+        props.forEach( o => set.add(o));
+        return names.filter(e=> !set.has(e));
+    }
+
+    //ECMA
+    {
+        let js = new Set();
+        let objects = ["globalThis", "console", "BigInt", "BigInt64Array", "BigUint64Array","Infinity","NaN","undefined","eval",]
+    }
+
+    //https://www.w3.org/TR/webaudio
+    names = filterOut(names, ["AudioContext", "AudioNode", "AnalyserNode","AudioBuffer"])
+
+    //https://streams.spec.whatwg.org/#bigs-class
+    names = filterOut(names,["ReadableStream","ReadableStreamDefaultReader","ReadableStreamBYOBReader"])
+
+    //https://wicg.github.io/BackgroundSync/spec/#sync-manager-interface
+    names = filterOut(names,["SyncManager"]);
+
+    console.log(names);
+
+
+</script>
