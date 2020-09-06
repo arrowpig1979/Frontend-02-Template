@@ -4,6 +4,7 @@
     var dictionary = ["Number","Whitespace","LineTerminator","*","/","+","-"];
 
     const ConstMultiplicativeExpression = "MultiplicativeExpression";
+    const ConstAdditiveExpresson = "AdditiveExpression"
 
     function* tokenize(source){
         var result = null;
@@ -52,11 +53,63 @@
     }
 
     function Expression(tokens){
-
+        if(source[0].type === ConstAdditiveExpresson && source[1] && source[1].type === "EOF"){
+            let node = {
+                type: "Expression",
+                children: [source.shift(), source.shift()]
+            }
+            source.unshift(node);
+            return node;
+        }
+        AdditiveExpression(source);
+        return Expression(source);
     }
 
     function AdditiveExpression(source){
 
+        if(source[0].type === ConstMultiplicativeExpression){
+            let node ={
+                type: ConstAdditiveExpresson,
+                children: [source[0]]
+            }
+            source[0] = node;
+            return AdditiveExpression(source);
+        }
+
+        if(source[0].type === ConstAdditiveExpresson && source[1] && source[1].type === "+"){
+            let node = {
+                type: ConstAdditiveExpresson,
+                operator:"+",
+                children: []
+            }
+            node.children.push(source.shift());
+            node.children.push(source.shift());
+            //AdditiveExpression + MultiplicativeExpression
+            MultiplicativeExpression(source);
+            node.children.push(source.shift());
+            source.unshift(node);
+            return AdditiveExpression(source);
+        }
+
+        if(source[0].type === ConstAdditiveExpresson && source[1] && source[1].type === "-"){
+            let node = {
+                type: ConstAdditiveExpresson,
+                operator:"-",
+                children: []
+            }
+            node.children.push(source.shift());
+            node.children.push(source.shift());
+            //AdditiveExpression + MultiplicativeExpression
+            MultiplicativeExpression(source);
+            node.children.push(source.shift());
+            source.unshift(node);
+            return AdditiveExpression(source);
+        }
+        if(source[0].type === ConstAdditiveExpresson){
+            return source[0];
+        }
+        MultiplicativeExpression(source);
+        return AdditiveExpression(source);
     }
 
     function MultiplicativeExpression(source){
