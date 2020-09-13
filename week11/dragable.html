@@ -50,10 +50,10 @@
         }
 
         let move = (event)=> {
-            //dragable.style.transform = `translate(${baseX + event.clientX - startX}px, ${baseY + event.clientY - startY}px)`
-
-            let range = getNearest(event.clientX, event.clientY);
-            range.insertNode(dragable);
+            dragable.style.transform = `translate(${baseX + event.clientX - startX}px, ${baseY + event.clientY - startY}px)`
+            //dragable.style.transform = `translate(${event.clientX-startX}px, ${event.clientY-startY}px)`
+            //let range = getNearest(event.clientX, event.clientY);
+            //range.insertNode(dragable);
         }
         //we can still capture the event when mouse is outside of dragable div object
         document.addEventListener("mousemove",move);
