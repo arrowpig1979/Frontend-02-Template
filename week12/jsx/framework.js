@@ -28,8 +28,9 @@ export class Component{
 
     constructor(type){
         //if we call this.render here
-        //this.root = this.render();
-        return document.createElement("div")
+        this.root = document.createElement("div");
+        //if we return document.createElement here, it will cause this of Carousel = HTMLDivElement whose attributes is read-only
+        // return document.createElement("div")
     }
 
     render(){

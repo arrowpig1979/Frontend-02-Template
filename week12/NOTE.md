@@ -32,3 +32,25 @@ class ElementWrapper extends Component{
 ```
 
 if I do not put this.super(), I get error: **"cannot set property 'root' of undefined"**.  after I put this.super(), I get error: **cannot read property 'super' of undefined**.  super is NOT a function of this. 
+
+```javascript
+class Component{
+
+    constructor(type){
+        
+        this.root = document.createElement("div");
+        
+        //return document.createElement("div")
+
+        //this.root = this.render();
+    }
+
+    render(){
+        return document.createElement("div")
+    }
+
+```
+if we return document.createElement here, it will cause **this** of Carousel = HTMLDivElement whose attributes is read-only.  If we call **this.render()** here, it will not call Component.render(),  it will call Carousel.render instead where this.attributes have not been initialized. 
+
+
+
